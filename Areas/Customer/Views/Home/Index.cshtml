@@ -1,0 +1,34 @@
+﻿@using EcomShopping.Models;
+@using X.PagedList.Mvc.Core
+@*@model List<Products>*@
+@model X.PagedList.IPagedList<Products>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<br />
+<div class="row">
+    @foreach(var product in Model)
+    {
+        <div class="col-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">
+                        <label style="font-size:23px; color:steelblue">@product.Name</label>
+                    </h4>
+                </div>
+                <img src="@product.Image" class="card-img-top" alt="Card Image" style="height:300px"/>
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <label style="font-size:20px; color:#a51313"><b>@product.Price</b></label>
+                        </div>
+                        <a asp-action="Details" asp-controller="Home" asp-route-id="@product.Id" class="btn btn-success pull-right btn-outline-dark">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div>
+    @Html.PagedListPager(Model,c=>Href("~/Customer/Home/Index?Page="+c),X.PagedList.Web.Common.PagedListRenderOptions.PageNumbersOnly)
+</div>
